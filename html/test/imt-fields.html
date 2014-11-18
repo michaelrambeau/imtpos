@@ -1,0 +1,32 @@
+<input ng-model="user.username">
+<input ng-model="user.gender">
+
+<p>form is valid ? {{myForm.$valid}}</p>
+
+<form novalidate name="myForm" imt-form edit-mode="true">
+	editMode={{editMode}};
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0005">Name (alphabet)</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<my-input
+					ng-model="user.username"
+					ng-required="true"
+				></my-input>
+			</imt-field-content>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>Date of birth</imt-field-label>
+			<imt-field-content>
+				<imt-year-month-date
+					ng-model="user.birthDate"
+					ng-required="true">
+				</imt-year-month-date>
+			</imt-field-content>
+		</imt-field-container>
+
+</form>
+
+<my-user></my-user>

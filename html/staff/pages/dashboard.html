@@ -1,0 +1,37 @@
+<h1>Dashboard</h1>
+
+<ul class="nav dashboard">
+	<li ng-repeat="item in mainMenu" ng-class="{disabled: item.disabled}" ng-switch on="item.state">
+				<!--<a href ng-click="{{item.action}}" ng-switch-when="">{{item.text}} [{{item.action}}]</a>-->
+				<!--<a dashboard-menu-entry ng-if="item.state == ''" item="item"></a>-->
+
+				<!-- Link to pages (defined by their status -->
+				<a ng-switch-when="" href ng-if="item.state == ''" ng-click="item.action()">{{item.text}}</a>
+
+				<!-- Link to actions (defined in the Dashboard controller ) -->
+				<a ng-switch-default href ui-sref="{{item.state}}">{{item.text}}</a>
+	</li>
+</ul>
+
+<div class="sub-menu">
+	<div class="small">For customers who do NOT have a BrastelRemit card</div>
+	<ul class="nav dashboard">
+		<li ng-repeat="item in customerWithoutCardMenu" ng-class="{disabled: item.disabled}">
+			<a href ui-sref="{{item.state}}">{{item.text}}</a>
+		</li>
+	</ul>
+</div>
+
+<div class="sub-menu">
+	<div class="small">For customers who have a BrastelRemit card</div>
+	<ul class="nav dashboard">
+		<li ng-repeat="item in customerWithCardMenu" ng-class="{disabled: item.disabled}" ng-switch on="item.state">
+
+			<a href ng-click="item.action()" ng-switch-when="">{{item.text}}</a>
+			<a href ui-sref="{{item.state}}" ng-switch-default>{{item.text}}</a>
+
+		</li>
+	</ul>
+</div>
+
+

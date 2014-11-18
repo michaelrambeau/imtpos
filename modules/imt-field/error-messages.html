@@ -1,0 +1,14 @@
+<!--All field validation error messages are defined here-->
+
+<!--"Required" error message is in first position so that required error message is displayed if an empty field has other errors-->
+<span ng-message="required">Required</span>
+
+<!--Fields used in the customer information page.-->
+<span ng-message="nameAlphabet">Invalid name</span>
+<span ng-message="username">Invalid username</span>
+<span ng-message="accountNumber">Invalid bank account number (from 7 to 13 numbers)</span>
+
+
+<!--Year-month-day component used to select the birth date-->
+<span ng-message="invalidDate">Select a valid date</span>
+

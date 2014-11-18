@@ -1,0 +1,27 @@
+<imt-input name="{{ngModel}}" ng-model="ngModel" ng-required="ngRequired" type="hidden"></imt-input><!--This hidden field is used to trigger form validation-->
+<div class="form-inline" ng-show="editMode">
+	<select
+		ng-model="year"
+		ng-options="year for year in years"
+		ng-change="onChange()"
+		class="form-control no-icon">
+		<option value="">---</option>
+	</select>
+
+	<select
+		ng-model="month"
+		ng-options="month.value as month.text for month in months"
+		ng-change="onChange()"
+		class="form-control no-icon">
+		<option value="">---</option>
+	</select>
+
+	<select
+		ng-model="day"
+		ng-options="day for day in days"
+		ng-change="onChange()"
+		class="form-control no-icon">
+		<option value="">---</option>
+	</select>
+</div>
+<p ng-show="! editMode" class="form-control-static">{{ngModel}}</p>

@@ -1,0 +1,37 @@
+<div class="container">
+	<h1>CONFIRM FOLLOWING TABLE AND PRESS CONFIRM</h1>
+
+	<table class="table table-bordered fees">
+		<thead>
+			<tr>
+				<th>
+					JPY SEND AMOUNT/<br/>TRANSFER FUNDS
+				</th>
+				<th>TRANSFER FEE</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="fee in fees">
+				<td>¥{{fee.min}} ~ ¥{{fee.max}}</td>
+				<td>¥{{fee.fee}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<etext key="???" list="true">
+			The countries listed above, are subject to change, please check our homepage for the latest information.<br />
+			Note: Hong Kong, Macau, and Taiwan are excluded the send charge for the other payout countries applies to each of these regions.<br />
+			For money transfer through an ATM. The ATM service with drawal fee will also be charged in audition to the send charge depending on the timeof days this will be displayed as ATM overtime service fee” on the screen and receipt)<br />
+			The exchange rate applicable to the currency convertion of this money transfer includes a spread prescribed by us in addition to the “send charge” profits relating to the currency conversion will be partially distributed to our alliance partner.<br />
+			This service may be unavailable during certain hours due to system maintenance or other reasons.
+		</etext>
+	</ul>
+
+
+</div>
+
+<div class="action-bar">
+	<div class="container">
+		<button type="submit" class="btn btn-lg btn-success pull-right">CONFIRM</button>
+</div>

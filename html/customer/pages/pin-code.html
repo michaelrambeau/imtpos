@@ -1,0 +1,20 @@
+<div class="pin-code-page container text-center">
+
+	<h1>Insert the PIN:</h1>
+
+	<div class="pin" ng-bind-html="data.displayPin"></div>
+
+	<!--
+	Calling the keyboard directive using passing as data argument am empty data object
+	(the "data" object in the current scope will be filled from "data" object in the directive scope)
+	-->
+	<pincode-keyboard data="data" />
+
+</div>
+
+<div class="action-bar">
+	<div class="container">
+		<button class="btn btn-lg btn-danger" ng-class="{disabled: data.pin.length == 0}" ng-click="data.pin = ''">CLEAR</button>
+		<button class="btn btn-lg btn-success pull-right" ng-class="{disabled: data.isValid == false}">CONFIRM</button>
+	</div>
+</div>

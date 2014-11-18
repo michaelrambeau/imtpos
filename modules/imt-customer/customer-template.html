@@ -1,0 +1,311 @@
+<form imt-form novalidate
+	ng-if="customer"
+	ng-submit="customerForm.$valid && save()"
+	name="customerForm"
+	edit-mode="editMode"
+	debug="false">
+
+
+	<div class="field-group-block">
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0003">Customer ID</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-field-static-text>{{customer.id}}</imt-field-static-text>
+			</imt-field-content>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0004">Username</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-input ng-model="customer.username"></imt-input>
+			</imt-field-content>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0005">Name (alphabet)</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-input
+					ng-model="customer.nameAlphabet"
+					validation="nameAlphabet"
+					ng-required="true"
+				></imt-input>
+			</imt-field-content>
+		</imt-field-container>
+
+	</div>
+
+	<div class="field-group-block">
+
+		<imt-field-container>
+			<imt-field-label><etext key="I0001-0057-0008">Postal Code?</etext></imt-field-label>
+
+			<imt-field-content>
+				<input imt-field-bind-record imt-field-bind-error ng-model="customer.address.postalCode" type="hidden">
+				<div class="postal-code-container form-inline" ng-show="editMode">
+					<input
+						ng-model="customer.address.postalCodeNumbers[0]"
+						name="postalCode1"
+						ng-change="onChangePostalCode()"
+						class="form-control no-icon" style="width: 52px;">
+					-
+					<input
+						ng-model="customer.address.postalCodeNumbers[1]"
+						name="postalCode2"
+						ng-change="onChangePostalCode()"
+						class="form-control no-icon" style="width: 62px;">
+					<button type="button" style="margin-left: 5px;" class="btn btn-default">
+						<span class="glyphicon glyphicon-search"></span></button>
+				</div>
+				<div ng-show="!editMode">{{customer.address.postalCode}}</div>
+			</imt-field-content>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0010">Ciy/Ward</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-input
+					ng-model="customer.address.cityward"
+					ng-required="true"
+				></imt-input>
+			</imt-field-content>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0011">Area</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-input
+					ng-model="customer.address.area"
+					ng-required="true"
+				></imt-input>
+			</imt-field-content>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0012">Number</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-input
+					ng-model="customer.address.number"
+					ng-required="true"
+				></imt-input>
+			</imt-field-content>
+		</imt-field-container>
+
+	</div>
+
+
+	<div class="field-group-block">
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0014">Gender</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-radio
+					ng-model="customer.gender"
+					category="gender"
+					ng-required="true"
+				></imt-radio>
+			</imt-field-content>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0016">Date of birth</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-year-month-date
+					ng-model="customer.birthDate"
+					ng-required="true">
+				</imt-year-month-date>
+			</imt-field-content>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0015">Nationality</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-select
+					ng-model="customer.nationality"
+					category="nationality"
+					ng-required="true"
+				></imt-select>
+			</imt-field-content>
+		</imt-field-container>
+
+
+	</div>
+
+	<h3 etextid="I0001-0057-0023">Applicant's Account Information for Refund</h3>
+
+	<div class="field-group-block">
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0024">Financial Institution</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-radio
+					ng-model="customer.bank.financialInstitution"
+					category="financialInstitution"
+					ng-required="true"
+				></imt-radio>
+			</imt-field-content>
+		</imt-field-container>
+
+		<div ng-show="customer.isJPB() == false">
+
+			<imt-field-container>
+				<imt-field-label>
+					<etext key="I0001-0057-0034">Bank name</etext>
+				</imt-field-label>
+				<imt-field-content>
+					<imt-input
+						ng-model="customer.bank.bankName"
+						ng-required="customer.isJPB() == false"
+					></imt-input>
+				</imt-field-content>
+			</imt-field-container>
+
+			<imt-field-container>
+				<imt-field-label>
+					<etext key="I0001-0057-0026">Branch name</etext>
+				</imt-field-label>
+				<imt-field-content>
+					<imt-input
+							ng-model="customer.bank.branchName"
+							ng-required="customer.isJPB() == false"
+					></imt-input>
+				</imt-field-content>
+			</imt-field-container>
+
+			<imt-field-container>
+				<imt-field-label>
+					<etext key="I0001-0057-0028">Account type</etext>
+				</imt-field-label>
+				<imt-field-content>
+					<imt-radio
+						ng-model="customer.bank.accountType"
+						category="bankAccount"
+						ng-required="customer.isJPB() == false"
+					></imt-radio>
+				</imt-field-content>
+			</imt-field-container>
+
+			<imt-field-container>
+				<imt-field-label>
+					<etext key="I0001-0057-0029">Account number</etext>
+				</imt-field-label>
+				<imt-field-content>
+					<imt-input
+						ng-model="customer.bank.accountNumberBNK"
+						validation="accountNumber"
+						ng-required="customer.isJPB() == false"
+					></imt-input>
+				</imt-field-content>
+			</imt-field-container>
+
+		</div>
+
+		<imt-field-container ng-show="customer.isJPB() == true">
+			<imt-field-label>
+				<etext key="I0001-0057-0029">Account number</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<div class="form-inline" ng-show="editMode">
+					<table class="postal-numbers inline">
+						<tr>
+							<td style="width: 130px;">
+								<p class="form-control-static">通帳記号</p>
+							</td>
+							<td>
+								<p class="form-control-static">通帳番号</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input
+									name="JPB0"
+									ng-model="customer.bank.accountNumberJPB[0]"
+									maxlength="5"
+									class="form-control no-icon"
+									validation="['kigouBangou']"
+									style="width:68px">
+									-
+								<input
+									name="JPB1"
+									ng-model="customer.bank.accountNumberJPB[1]"
+									maxlength="1"
+									class="form-control no-icon"
+									style="width:35px">
+								-
+							</td>
+							<td>
+								<input
+									name="JPB2"
+									ng-model="customer.bank.accountNumberJPB[2]"
+									class="form-control no-icon"
+									maxlength="8"
+									style="width:92px">
+							</td>
+						</tr>
+					</table>
+					<div class="small">If there is no extra digit between the numbers, please leave the middle column blank.</div>
+				</div>
+
+			</imt-field-content>
+			<imt-field-static-text ng-show="!editMode">{{customer.bank.accountNumber}}</imt-field-static-text>
+		</imt-field-container>
+
+		<imt-field-container>
+			<imt-field-label>
+				<etext key="I0001-0057-0030">Account holder name</etext>
+			</imt-field-label>
+			<imt-field-content>
+				<imt-input
+					ng-model="customer.bank.accountName"
+					ng-required="true"
+				></imt-input>
+			</imt-field-content>
+		</imt-field-container>
+
+	</div>
+
+
+	<p class="text-center">
+		<button
+			type="button" class="btn btn-primary"
+			ng-show="!editMode"
+			ng-click="editMode = true">
+			EDIT
+		</button>
+
+		<button
+			type="button" class="btn btn-default"
+			ng-show="editMode"
+			ng-click="editMode=false;reset()">
+			CANCEL
+		</button>
+
+		<button
+				type="submit" class="btn btn-primary"
+				ng-show="editMode"
+				ng-class="{disabled: customerForm.$invalid}">
+			SAVE
+		</button>
+	</p>
+
+</form>

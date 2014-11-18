@@ -1,0 +1,14 @@
+<!--
+template for <pincode> directive
+-->
+
+<div class="keyboard">
+	<div class="keyboard-row" ng-repeat="row in rows">
+		<div class="keyboard-cell" ng-repeat="column in row">
+			<div class="keyboard-key" ng-if="column != ' '" ng-click="keyEvent(column)">
+				<div ng-if="column != 'BACK'" class="number">{{column}}</div>
+				<img ng-if="column == 'BACK'" class="backspace-icon" src="img/customer/back-key.png" alt="back key" width="62" height="35" />
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+<form name="acceptConditions" ng-submit="nav.goNext()" class="container accept-conditions-page">
+
+	<p>I also confirm that this transaction is not related to any of the following regulations under the Foreign Exchange and Foreign Trade Act:</p>
+
+	<div class="boring-stuff">
+		<p class="small margin-top" etextid="0001-0043-0061">I have read and agree to the terms and conditions provided by Brastel Remit, as well as the regulations on Terms and Conditions of International Money Transfer Transactions.<br>I fully understand the following IMPORTANT NOTICE and hereby declare that the required items pursuant to Article 3 of the "Law on reporting requirements" are being abided by.</p>
+		<p class="small" etextid="I0001-0043-0062">IMPORTANT NOTICE:</p>
+		<ul class="calcNotes small">
+			<li etextid="I0001-0043-0063">This service is not to offer the exchange transactions conventionally provided by banks and other financial institutions.</li>
+			<li etextid="I0001-0043-0064">This service is not to be accepted such as time deposit (bond), nor demand deposit as defined by the Japanese Banking Act (Article 2, clause 4).</li>
+			<li etextid="I0001-0043-0065">The deposit credited by you is not eligible for any insurance claim regulated in Article 53 of the Deposit Insurance Act with all amendments and/or Article 55 of the Agricultural and Fishery Cooperation Savings Insurance with all amendments.</li>
+			<li etextid="I0001-0043-0066">BRASTEL REMIT ensures the protection of users in respect to transaction monies by the National Deposit Insurance Scheme as mandated by Clause 43 of Act on Settlement and by concluding an Agreement on Preservation of Performance Guarantee with Mizuho Bank in compliance with Article 44 of the said Act.</li>
+		</ul>
+		<p class="small" etextid="I0001-0043-0068">I also confirm that this transaction is not related to any of the following regulations under the Foreign Exchange and Foreign Trade Act:</p>
+		<ul class="small">
+			<li etextid="I0001-0043-0071">Transfer of asset for the purpose of helping activities that could contribute to North Korea's nuclear activities, ballistic missile development, or other Weapons of Mass Destruction (WMD)-related programs or activities.</li>
+			<li etextid="I0001-0043-0079">Importations and intermediary trades where place/port of origin is North Korea.</li>
+			<li etextid="I0001-0043-0080">Any export to North Korea (including those passing through a third party country) or any import from North Korea.</li>
+			<li etextid="I0001-0043-0081">Capital transaction or domestic direct investment, where the investment in stock is made by a person who is affiliated with Iran and the stock is owned by Japanese companies engaged in nuclear activities related businesses being cited in the relevant instruction of the Ministry of Foreign Affairs.</li>
+			<li etextid="I0001-0043-0082">Outgoing payments to beneficiaries that are located in any foreign country or receiving remittances coming from Iran, where the purpose of the transaction entails financial contribution to Iran's nuclear activities or nuclear related activities, to activities related to the production of large-size conventional weapons etc. and to other covered activities.</li>
+			<li etextid="I0001-0043-0083">Purchase of prohibited goods or items that require import permit or other authorization.</li>
+		</ul>
+	</div>
+
+	<div class="checkbox-container alert alert-warning has-feedback">
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" ng-model="checkboxAccept" id="checkbox-accept-conditions" class="pull-left required" required>I HAVE READ AND AGREE TO THE TERMS AND
+CONDITIONS PROVIDED BY BRASTEL REMIT.</label>
+		</div>
+	</div>
+
+</div>
+
+<div class="action-bar">
+	<div class="container">
+		<button class="btn btn-lg btn-danger" ng-click="nav.goPrev()">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+			BACK
+		</button>
+		<button type="submit" class="btn btn-lg btn-success pull-right" ng-class="{disabled: acceptConditions.$valid != true}">CONFIRM</button>
+	</div>
+</form>

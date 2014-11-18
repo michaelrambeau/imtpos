@@ -1,0 +1,33 @@
+<!--
+A navigation bar displayed in dev only to navigate easily from page to page
+-->
+
+<div class="navigation-bar">
+	<div class="container">
+		<div class="table-layout">
+			<div class="text-left">
+				<button class="btn btn-sm btn-default" ng-click="nav.goPrev()" ng-class="{disabled: nav.canGoPrev() == false}">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+					PREVIOUS
+				</button>
+			</div>
+
+			<div class="text-center small inline-form">
+				<!--(This navigation bar is displayed for debugging purpose only)-->
+				<select
+					ng-change="nav.goTo($state.current.name)"
+					ng-model="$state.current.name"
+					ng-options="state for state in nav.getStates()"
+					class="form-control input-sm">
+				</select>
+			</div>
+
+			<div class="text-right">
+				<button class="btn btn-default btn-sm" ng-click="nav.goNext()" ng-class="{disabled: nav.canGoNext() == false}">
+				NEXT
+				<span class="glyphicon glyphicon-chevron-right"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

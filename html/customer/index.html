@@ -1,0 +1,10 @@
+<!--
+Layout for the customer pages
+-->
+<ng-include src="'html/common/debug-navigation-bar.html?v=' + version"></ng-include>
+<ng-include src="'html/customer/partials/header.html?v=' + version"></ng-include>
+
+<div class="customer">
+	<ng-include src="'html/common/alert-error.html?v=' + version"></ng-include>
+	<ui-view />
+</div>

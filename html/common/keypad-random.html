@@ -1,0 +1,7 @@
+<div class="keypad-random" ng-class="{disabled: data.pin.length == 4}">
+	<div class="row">
+		<div ng-repeat="key in keys" ng-class="{'col-xs-6': $index != 2, 'col-xs-12': $index == 2}">
+			<div class="key" ng-click="keyEvent($index)">{{key[0]}} {{key[1]}}</div>
+		</div>
+	</div>
+</div>

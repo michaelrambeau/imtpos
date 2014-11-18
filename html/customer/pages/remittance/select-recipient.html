@@ -1,0 +1,77 @@
+<form ng-submit="nav.goNext()">
+	<div class="container">
+
+		<!--<select class="form-control" lookup-options category="reason" value="2"></select>-->
+
+
+		<div class="form-group">
+			<label class="field-name">Name</label>
+			<span class="field-value">{{user.name}}</span>
+		</div>
+
+
+		<label class="field-name">Select the recipient</label>
+
+		<div class="recipient-list list">
+			<div class="recipient list-item" ng-repeat="recipient in recipients">
+				<div class="table-layout">
+
+					<div class="checkbox" ng-click="select(recipient)">
+						<span ng-hide="recipient.selected" class="glyphicon glyphicon-unchecked"></span>
+						<span ng-show="recipient.selected" class="glyphicon glyphicon-check"></span>
+					</div>
+
+					<div>
+						<h4>{{recipient.name}}</h4>
+					</div>
+
+					<div class="slide-icon text-center" ng-click="toggle(recipient)">
+						<div class="icon" ng-class="{open: recipient.showDetails == true}">
+							<span ng-show="recipient.showDetails == false" class="glyphicon glyphicon-chevron-down"></span>
+							<span ng-show="recipient.showDetails == true" class="glyphicon glyphicon-chevron-up"></span>
+						</div>
+					</div>
+				</div>
+				<div class="slide-panel" ng-show="recipient.showDetails == true">
+					<form>
+						<label class="field-name">Reason of remittance</label>
+						<div class="radio-container" name="reason" lookup-radio category="reason" value="{{recipient.reason}}"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="enter-amounts">
+			{{remittance.amountYen | number:0}}
+			{{remittance.amountLocal | number:2}}
+			<div class="form-group">
+				<label class="field-name">INSERT THE AMOUNT TO SEND:</label>
+				<div class="enter-deposit input-group">
+					<span class="input-group-addon currency-mark">¥</span>
+					<input type="text" ng-model="remittance.amountYen" maxlength="9" class="amount form-control">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="field-name">LOCAL CURRENCY AMOUNT (REAIS):</label>
+				<div class="enter-deposit input-group">
+					<span class="input-group-addon currency-mark">$</span>
+					<input type="text" ng-model="remittance.amountLocal" value="" maxlength="9" class="amount form-control">
+				</div>
+			</div>
+		</div>
+
+		<button class="btn btn-default" type="button" ng-click="test()">TEST</button>
+
+	</div><!--container-->
+
+
+
+
+
+	<div class="action-bar">
+		<div class="container">
+			<button type="submit" class="btn btn-lg btn-success pull-right" ng-class="{disabled: isFormValid() == false}">CONFIRM</button>
+	</div>
+
+</form>

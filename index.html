@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-controller="MainController"><!--no ng-app directive here, see app.js file-->
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>IMT PoS prototype</title>
+
+		<!--We use a Javascript / CSS loader called "toast" to be able to add version number to filepahs-->
+		<script src="js/lib/loader/toast.js"></script>
+
+		<script>
+				var imtpos = {};
+				imtpos.version = '0.0.1h';
+				toast('css/app.css?v=' + imtpos.version);
+		</script>
+
+		<!--Angular core-->
+		<script src="js/lib/angular/angular.js">/**/</script>
+
+		<!--jQuery and Bootstrap-->
+		<script src="js/lib/jquery/jquery.min.js">/**/</script>
+		<script src="js/lib/bootstrap/bootstrap.js">/**/</script>
+
+		<!--Angular (more or less) official modules-->
+		<script src="js/lib/angular/angular-ui-router.js">/**/</script>
+		<script src="js/lib/angular/angular-cookies.js">/**/</script>
+		<!-- ngSanitize module is used to output html content from etext items (such as <br/>)-->
+		<script src="js/lib/angular/angular-sanitize.js">/**/</script>
+		<!--ngMessage module used to display field error messages-->
+		<script src="js/lib/angular/angular-messages.js">/**/</script>
+
+		<script>
+			//First, load the module that manages access data, depending on the context...
+			//toast('js/device-context-module.js?v=' + imtpos.version)
+			toast('js/local-context-module.js?v=' + imtpos.version)
+			//...then, load the file that bootstraps the angular application.
+			toast('js/app.js?v=' + imtpos.version);
+		</script>
+
+	</head>
+
+  <body>
+
+		<div id="loading" class="page-load-overlay">
+			<img src="img/loading.gif">
+		</div>
+
+		<ui-view />
+
+  </body>
+</html>

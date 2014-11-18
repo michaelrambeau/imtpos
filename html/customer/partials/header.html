@@ -1,0 +1,28 @@
+<header>
+	<div class="top-banner">
+		<div class="container">
+			<a class="logo" href="/eng/home">
+				<img width="177" height="23" src="img/logo/brastel_remit_logo.png">
+			</a>
+			<div class="header-buttons hidden-xs">
+				<ul class="nav nav-pills">
+					<li class="dropdown">
+						<a class="dropdown-toggle language-switcher-big" href="" data-toggle="dropdown">
+								Language / 言語
+								<span class="glyphicon glyphicon-chevron-down chevron"><!----></span>
+						</a>
+						<ul class="dropdown-menu pull-right language-list">
+							<li ng-repeat="lang in availableLanguages" ng-class="{disabled: lang.number == currentLanguage}">
+								<a href="" ng-click="switchLanguage(lang.number)">
+									<div>
+										<span class="text">{{lang.label}}</span>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</header>
