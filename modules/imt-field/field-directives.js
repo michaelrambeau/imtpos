@@ -10,33 +10,44 @@ app.directive('imtForm', function() {
 	return {
 		restrict: 'A',
 		scope: true,
-		link: function(scope, element, attrs) {
-			scope.editMode = (attrs.editMode === 'true');
-			scope.debugMode = (attrs.debugMode === 'true');
+		compile: function(scope, element, attrs) {
+			return {
+				pre: function(scope, element, attrs) {
+					//Set the form editMode attribute (true by default)
+					scope.editMode = (attrs.editMode === 'true' || !angular.isDefined(attrs.editMode));
+					scope.debugMode = (attrs.debugMode === 'true');
+				}
+			};
 		},
-		controller: function($scope, $parse, LookupHelpers) {
+		controller: function($scope) {
 
 			var imtFields = [];
-			var isFieldEditable = function(fieldScope) {
-				//note: when true and false parameters are passed to the directive using attributes, they are String.
-				return ($scope.editMode === true) && (fieldScope.readonly !== 'true');
+
+			this.addField = function(fieldBlockScope, ngModelController, fieldScope) {
+				//called by imt-input, imt-select and imt-radio children directives to "register" a new field.
+
+				imtFields.push(fieldBlockScope);
+				fieldBlockScope.editMode = isFieldEditable(fieldBlockScope);
+				fieldBlockScope.field = ngModelController;
+
+				//Add isEditable function to imt field scopes, used in imt-input, imt-select and imt-radio templates
+				fieldScope.isEditable = function() {
+        	return fieldBlockScope.editMode;
+      	};
+
+				//Add debug property in the field scope.
+				fieldBlockScope.debug = $scope.debug;
+
 			};
 
-/*			$scope.$watch('editMode', function() {
-				angular.forEach(imtFields, function(fieldScope) {
-					fieldScope.editMode = isFieldEditable(fieldScope);
+			//Watch for changes about the editmode form property
+			$scope.$watch('editMode', function() {
+				angular.forEach(imtFields, function(fieldBlockScope) {
+					fieldBlockScope.editMode = isFieldEditable(fieldBlockScope)
 				});
-			});*/
-
-			this.addField = function(fieldScope, ngModelController) {
-
-				imtFields.push(fieldScope);
-				fieldScope.editMode = isFieldEditable(fieldScope);
-				fieldScope.field = ngModelController;
-
-				//Add debug property in the scope debug.
-				fieldScope.debug = $scope.debug;
-
+			});
+			var isFieldEditable = function(fieldBlockScope) {
+				return ($scope.editMode === true) && (fieldBlockScope.readonly !== true);
 			};
 		}
 	};
@@ -46,7 +57,7 @@ app.directive('imtForm', function() {
 
 /*
 
-<imt-field-container> directive
+<imt-field-blockr> directive
 
 Used as a container for a field (or a group of fields) and its label.
 it has its own scope that has a property called "field" used to show/hide error messages.
@@ -59,10 +70,9 @@ Belongs to an "imt-form" component used to register fields.
 */
 
 
-app.directive('imtFieldContainer', function() {
+app.directive('imtFieldBlock', function() {
 	var html = '<div class="form-group has-feedback" ' +
 	'ng-class="{\'has-error\': field.$invalid == true}"><div ng-transclude></div>' +
-
 	'</div>';
 	return {
 		template: html,
@@ -71,16 +81,18 @@ app.directive('imtFieldContainer', function() {
 		transclude: true,
 		require: '^imtForm',
 		scope: true,
-		controller: function($scope) {
-			//Method called by imt-field-bind-error-scope directive to update the current scope.
-			this.addField = function(ngModelController) {
-				//console.info('Add the field to fieldContainer scope', ngModelController.$name, ngModelController);
-				$scope.field = ngModelController;
+		compile: function(element, attrs) {
+			return {
+				pre: function(scope, element, attrs) {
+					scope.readonly = (attrs.readonly == 'true');
+					scope.directiveName = 'imtFieldBlock';
+				}
 			};
-			this.fieldScope = $scope;
 		},
-		link: function(scope, element, attrs, ctrls) {
+		controller: function($scope) {
+			this.fieldScope = $scope;
 		}
+
 	};
 });
 
@@ -148,12 +160,12 @@ app.directive('imtInput', function(ValidationMethods) {
 		var model = attrs.ngModel;
 		var type = (attrs.type === 'hidden') ? 'hidden' : 'text';
 
-		var html = '<input ng-show="editMode" class="form-control"' +
+		var html = '<input ng-show="isEditable()" class="form-control"' +
 		' ng-model="' + model + '" name="' + model + '" ng-required="' + attrs.ngRequired + '"' +
 		' type="' + type + '">';
 
 		if (type === "text") {
-			html = html + '<imt-field-static-text ng-show="!editMode">{{' + model + '}}<imt-field-static>';
+			html = html + '<imt-field-static-text ng-show="!isEditable()">{{' + model + '}}<imt-field-static>';
 		}
 
 		return html ;
@@ -162,7 +174,7 @@ app.directive('imtInput', function(ValidationMethods) {
 		restrict: 'E',
 		scope: true,//creates a new scope that inherits from the parent
 		template: getTemplate,
-		require: ['^imtForm','^imtFieldContainer'],
+		require: ['^imtForm','^imtFieldBlock'],
 		link: function(scope, element, attrs, ctrls) {
 			var input = element.find('input');
 			var ngModelController = input.controller('ngModel');
@@ -170,8 +182,8 @@ app.directive('imtInput', function(ValidationMethods) {
 			if (attrs.validation) {
 				ValidationMethods.updateNgModel(ngModelController, attrs.validation.split(','));
 			}
-			ctrls[0].addField(ctrls[1].fieldScope, ngModelController);
-			//ctrls[1].addField(ngModelController, attrs);
+			ctrls[0].addField(ctrls[1].fieldScope, ngModelController, scope);
+
 		}
 	};
 });
@@ -198,14 +210,13 @@ app.directive('imtSelect', function(LookupHelpers) {
 		restrict: 'E',
 		scope: true,//creates a new scope that inherits from the parent
 		template: getTemplate,
-		require: ['^imtForm','^imtFieldContainer'],
+		require: ['^imtForm','^imtFieldBlock'],
 		link: function(scope, element, attrs, ctrls) {
 			scope.category = attrs.category;
 			scope.items = LookupHelpers.getTranslatedItems(scope.category);
 			var select = element.find('select');
 			var ngModelController = select.controller('ngModel');
-			console.log(ngModelController);
-			ctrls[0].addField(ctrls[1].fieldScope, ngModelController);
+			ctrls[0].addField(ctrls[1].fieldScope, ngModelController, scope);
 		}
 	};
 });
@@ -232,13 +243,22 @@ app.directive('imtRadio', function(LookupHelpers) {
 		restrict: 'E',
 		scope: true,//creates a new scope that inherits form the parent
 		template: getTemplate,
-		require: ['^imtForm','^imtFieldContainer'],
+		require: ['^imtForm','^imtFieldBlock'],
 		link: function(scope, element, attrs, ctrls) {
 			scope.category = attrs.category;
 			scope.items = LookupHelpers.getTranslatedItems(scope.category);
 			var input = element.find('input');
 			var ngModelController = input.controller('ngModel');
-			ctrls[0].addField(ctrls[1].fieldScope, ngModelController);
+			ctrls[0].addField(ctrls[1].fieldScope, ngModelController, scope);
 		}
+	};
+});
+
+app.directive('imtField', function() {
+	return {
+		restrict: 'A',
+		controller: function() {
+
+    }
 	};
 });

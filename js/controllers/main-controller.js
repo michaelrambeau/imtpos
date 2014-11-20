@@ -24,7 +24,10 @@ app.controller('MainController', function($scope, Languages, Translations, $stat
 		Translations.getAll(lang);
 	};
 
-	$rootScope.user = {name: 'mike'};
+
+	$scope.player = {
+		name: 'Arvydas'
+	};
 
 
 	$scope.staffUser = null;

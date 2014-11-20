@@ -8,25 +8,25 @@
 
 	<div class="field-group-block">
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0003">Customer ID</etext>
 			</imt-field-label>
 			<imt-field-content>
 				<imt-field-static-text>{{customer.id}}</imt-field-static-text>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
-		<imt-field-container>
+		<imt-field-block readonly="true">
 			<imt-field-label>
 				<etext key="I0001-0057-0004">Username</etext>
 			</imt-field-label>
 			<imt-field-content>
 				<imt-input ng-model="customer.username"></imt-input>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0005">Name (alphabet)</etext>
 			</imt-field-label>
@@ -37,13 +37,13 @@
 					ng-required="true"
 				></imt-input>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
 	</div>
 
 	<div class="field-group-block">
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label><etext key="I0001-0057-0008">Postal Code?</etext></imt-field-label>
 
 			<imt-field-content>
@@ -65,9 +65,9 @@
 				</div>
 				<div ng-show="!editMode">{{customer.address.postalCode}}</div>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0010">Ciy/Ward</etext>
 			</imt-field-label>
@@ -77,9 +77,9 @@
 					ng-required="true"
 				></imt-input>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0011">Area</etext>
 			</imt-field-label>
@@ -89,9 +89,9 @@
 					ng-required="true"
 				></imt-input>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0012">Number</etext>
 			</imt-field-label>
@@ -101,14 +101,14 @@
 					ng-required="true"
 				></imt-input>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
 	</div>
 
 
 	<div class="field-group-block">
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0014">Gender</etext>
 			</imt-field-label>
@@ -119,9 +119,9 @@
 					ng-required="true"
 				></imt-radio>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0016">Date of birth</etext>
 			</imt-field-label>
@@ -131,9 +131,9 @@
 					ng-required="true">
 				</imt-year-month-date>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0015">Nationality</etext>
 			</imt-field-label>
@@ -144,7 +144,7 @@
 					ng-required="true"
 				></imt-select>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
 
 	</div>
@@ -153,7 +153,7 @@
 
 	<div class="field-group-block">
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0024">Financial Institution</etext>
 			</imt-field-label>
@@ -164,11 +164,11 @@
 					ng-required="true"
 				></imt-radio>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
 		<div ng-show="customer.isJPB() == false">
 
-			<imt-field-container>
+			<imt-field-block>
 				<imt-field-label>
 					<etext key="I0001-0057-0034">Bank name</etext>
 				</imt-field-label>
@@ -178,9 +178,9 @@
 						ng-required="customer.isJPB() == false"
 					></imt-input>
 				</imt-field-content>
-			</imt-field-container>
+			</imt-field-block>
 
-			<imt-field-container>
+			<imt-field-block>
 				<imt-field-label>
 					<etext key="I0001-0057-0026">Branch name</etext>
 				</imt-field-label>
@@ -190,9 +190,9 @@
 							ng-required="customer.isJPB() == false"
 					></imt-input>
 				</imt-field-content>
-			</imt-field-container>
+			</imt-field-block>
 
-			<imt-field-container>
+			<imt-field-block>
 				<imt-field-label>
 					<etext key="I0001-0057-0028">Account type</etext>
 				</imt-field-label>
@@ -203,9 +203,9 @@
 						ng-required="customer.isJPB() == false"
 					></imt-radio>
 				</imt-field-content>
-			</imt-field-container>
+			</imt-field-block>
 
-			<imt-field-container>
+			<imt-field-block>
 				<imt-field-label>
 					<etext key="I0001-0057-0029">Account number</etext>
 				</imt-field-label>
@@ -216,11 +216,11 @@
 						ng-required="customer.isJPB() == false"
 					></imt-input>
 				</imt-field-content>
-			</imt-field-container>
+			</imt-field-block>
 
 		</div>
 
-		<imt-field-container ng-show="customer.isJPB() == true">
+		<imt-field-block ng-show="customer.isJPB() == true">
 			<imt-field-label>
 				<etext key="I0001-0057-0029">Account number</etext>
 			</imt-field-label>
@@ -268,9 +268,9 @@
 
 			</imt-field-content>
 			<imt-field-static-text ng-show="!editMode">{{customer.bank.accountNumber}}</imt-field-static-text>
-		</imt-field-container>
+		</imt-field-block>
 
-		<imt-field-container>
+		<imt-field-block>
 			<imt-field-label>
 				<etext key="I0001-0057-0030">Account holder name</etext>
 			</imt-field-label>
@@ -280,7 +280,7 @@
 					ng-required="true"
 				></imt-input>
 			</imt-field-content>
-		</imt-field-container>
+		</imt-field-block>
 
 	</div>
 

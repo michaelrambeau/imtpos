@@ -57,8 +57,7 @@ app.directive('imtYearMonthDate', function() {
 			ngRequired: '='
 		},
 		link: function(scope, element, attrs, formCtrl) {
-			formCtrl.addField(scope, element);
-			console.info('Link', scope.recordField, scope.key, scope.model);
+			formCtrl.addField(scope, element, scope);
 			var input = element.find('input');
 			var ngModelController = input.controller('ngModel');
 			ngModelController.$validators.invalidDate = function(value) {
